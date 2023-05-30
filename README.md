@@ -1,2 +1,5 @@
-SwiftUI, Project 1: WeSplit
+# 100DaysOfSwiftUI
+
+##  Project 1: WeSplit
+
 Basics of SwiftUI with your first project
