@@ -15,33 +15,21 @@ struct ContentView: View {
     @State private var tipPercentage = 20
     @FocusState private var amountIsFocused: Bool
     
-    
-    let tipPercentageList = [10, 15, 20, 25, 0]
-    
-    var totalPerPerson: Double {
-        let peopleCount = Double(numberOfPeople + 2)
-        let tipSelection = Double(tipPercentage)
-        let tipValue = checkAmount * tipSelection / 100
-        
-        let result = (checkAmount + tipValue) / peopleCount
-        
-        return result
-    }
+    private var locale = Locale.current.currency?.identifier ?? "EUR"
     
     var total: Double {
         let tipSelection = Double(tipPercentage)
         let tipValue = checkAmount * tipSelection / 100
+        let total = checkAmount + tipValue
         
-        let result = checkAmount + tipValue
-        
-        return result
+        return total
     }
     
     var body: some View {
         NavigationView {
             Form {
                 Section {
-                    TextField("Amount", value: $checkAmount, format: .currency(code: Locale.current.currency?.identifier ?? "EUR"))
+                    TextField("Amount", value: $checkAmount, format: .currency(code: locale))
                         .keyboardType(.decimalPad)
                         .focused($amountIsFocused)
                     Picker("Number of people", selection: $numberOfPeople) {
@@ -63,13 +51,13 @@ struct ContentView: View {
                 }
                 
                 Section {
-                    Text(total, format: .currency(code: Locale.current.currency?.identifier ?? "EUR"))
+                    Text(total, format: .currency(code: locale))
                 } header: {
                     Text("Total amount")
                 }
                 
                 Section {
-                    Text(totalPerPerson, format: .currency(code: Locale.current.currency?.identifier ?? "EUR"))
+                    Text(total / Double(numberOfPeople + 2), format: .currency(code: locale))
                 } header: {
                     Text("Amount per person")
                 }
