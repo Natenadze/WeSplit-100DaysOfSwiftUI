@@ -50,12 +50,16 @@ struct ContentView: View {
                     Text("Select tip percentage")
                 }
                 
+                // Total amount
                 Section {
                     Text(total, format: .currency(code: locale))
+                        .background(tipPercentage == 0 ? .red : .clear)
                 } header: {
                     Text("Total amount")
                 }
                 
+                
+                // Amount Per Person
                 Section {
                     Text(total / Double(numberOfPeople + 2), format: .currency(code: locale))
                 } header: {
